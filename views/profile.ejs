@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <title>Profile - Eldoret City Center Parking</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- fonts style -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- nice selecy -->
+    <link rel="stylesheet" href="css/nice-select.min.css" />
+
+    <!--owl slider stylesheet -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f4f4f8;
+      }
+      .profile-card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .profile-card:hover {
+        transform: translateY(-10px);
+      }
+      .section-header {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body class="sub_page">
+    <div class="hero_area">
+      <div class="bg-box">
+        <img src="images/slider-bg.jpg" alt="" />
+      </div>
+      <%- include('_header.ejs') %>
+    </div>
+
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="card profile-card mb-4">
+            <div class="card-header bg-primary text-white">
+              <h2 class="mb-0">
+                <i class="fas fa-user me-2"></i>Personal Information
+              </h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <strong>Full Name:</strong>
+                  <p class="text-muted"><%= locals.user.fullname %></p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <strong>Email:</strong>
+                  <p class="text-muted"><%= locals.user.email %></p>
+                </div>
+                <div class="col-md-6">
+                  <strong>Phone:</strong>
+                  <p class="text-muted"><%= locals.user.phone %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Bookings Section -->
+          <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+              <h3 class="mb-0">
+                <i class="fas fa-parking me-2"></i>Active Booking
+              </h3>
+            </div>
+            <div class="card-body">
+              <% const activeBookings =
+              locals.bookings.filter(booking=>booking.booking_status ==
+              'checked-in') %> <% if(activeBookings.length == 0){ %>
+              <div class="alert alert-info">
+                <p class="mb-0">You are currently not parked with us!</p>
+              </div>
+              <% } else { %> <% activeBookings.forEach(booking => { %>
+              <div
+                class="alert alert-warning d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <strong>Space ID:</strong> <%= booking.space %> <% let
+                  currentTime = new Date() %> <% let checkInTime = new
+                  Date(booking.time_in) %> <% let timeDiff =
+                  currentTime.getTime() - checkInTime.getTime() %> <% const
+                  hoursPassed = Math.ceil(timeDiff / (1000 * 60 * 60)) %>
+                  <p class="mb-0">
+                    <strong>Parking Time:</strong>
+                    <%= hoursPassed %> <%= hoursPassed == 1 ? 'hour' : 'hours'
+                    %>
+                  </p>
+                </div>
+                <a
+                  href="/checkout?space=<%=booking.space%>"
+                  class="btn btn-danger"
+                >
+                  Check Out <i class="fas fa-sign-out-alt ms-2"></i>
+                </a>
+              </div>
+              <% }) %> <% } %>
+            </div>
+          </div>
+
+          <!-- Booking History Section -->
+          <div class="card">
+            <div class="card-header bg-info text-white">
+              <h3 class="mb-0">
+                <i class="fas fa-history me-2"></i>Booking History
+              </h3>
+            </div>
+            <div class="card-body">
+              <% const oldBookings =
+              locals.bookings.filter(booking=>booking.booking_status ==
+              'checked-out') %> <% if(oldBookings.length == 0){ %>
+              <div class="alert alert-secondary">
+                <p class="mb-0">You have not parked with us before!</p>
+              </div>
+              <% } else { %>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Space ID</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% oldBookings.forEach(booking => { %>
+                    <tr>
+                      <td><%= booking.space %></td>
+                      <td>
+                        <%= new Date(booking.time_in).toLocaleDateString() %>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('_footer.ejs') %>
+
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- nice select -->
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+  </body>
+</html>

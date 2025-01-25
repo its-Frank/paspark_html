@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <title>Spaces - Eldoret City Center Parking</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- fonts style -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- nice selecy -->
+    <link rel="stylesheet" href="css/nice-select.min.css" />
+    <!--owl slider stylesheet -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+  </head>
+  <body class="sub_page">
+    <div class="hero_area">
+      <div class="bg-box">
+        <img src="images/slider-bg.jpg" alt="" />
+      </div>
+      <%- include('_header.ejs') %>
+    </div>
+    <main class="container py-4">
+      <h1 class="text-center mb-4">Parking Spaces</h1>
+      <div class="row">
+        <% ['bikes', 'cars', 'trucks', 'trailers'].forEach(category => { %>
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+            <div class="card-header bg-primary text-white text-uppercase">
+              <%= category %>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <% locals.spaces.filter(space => space.space_category ==
+                category).forEach(space => { %>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <h5 class="mb-1"><%= space.space_label %></h5>
+                    <% if(space.occupied==0) { %>
+                    <span class="badge bg-success">Available</span>
+                    <% } else { %>
+                    <span class="badge bg-danger">Occupied</span>
+                    <% } %>
+                  </div>
+                  <% if(space.occupied==0) { %>
+                  <a
+                    href="/bookspace?space_id=<%=space.space_id%>"
+                    class="btn btn-sm btn-outline-primary"
+                  >
+                    Book
+                  </a>
+                  <% } %>
+                </li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+
+    <%- include('_footer.ejs') %>
+
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- nice select -->
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+  </body>
+</html>

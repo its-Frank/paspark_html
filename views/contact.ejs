@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+
+    <title>Paspark</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- nice selecy -->
+    <link rel="stylesheet" href="css/nice-select.min.css" />
+
+    <!--owl slider stylesheet -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+  </head>
+
+  <body class="sub_page">
+    <div class="hero_area">
+      <div class="bg-box">
+        <img src="images/slider-bg.jpg" alt="" />
+      </div>
+      <%- include('_header.ejs') %>
+    </div>
+
+    <!-- Contact Section -->
+    <section
+      class="contact_section layout_padding py-5"
+      id="contactLink"
+      style="
+        background-color: #05264a;
+        padding-top: 60px !important;
+        margin-top: 30px;
+      "
+    >
+      <div class="container">
+        <% if (locals.success) { %>
+        <div class="alert alert-success text-center mb-4"><%= success %></div>
+        <% } %> <% if (locals.error) { %>
+        <div class="alert alert-danger text-center mb-4"><%= error %></div>
+        <% } %>
+
+        <div class="heading_container text-center mb-4">
+          <h2 class="text-white">Contact Eldoret City Center Car Parking</h2>
+          <p class="text-white-50">
+            We'd love to hear from you. Send us a message and we'll get back to
+            you soon.
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <form action="/contact" method="POST">
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                  <label for="inputName4" class="text-white">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputName4"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label for="inputEmail4" class="text-white"
+                    >Email Address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail4"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="inputSubject4" class="text-white">Subject</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputSubject4"
+                  name="subject"
+                  placeholder="Enter message subject"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="inputMessage" class="text-white"
+                  >Your Message</label
+                >
+                <textarea
+                  class="form-control"
+                  id="inputMessage"
+                  name="message"
+                  placeholder="Write your message here"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="inputPhone" class="text-white"
+                    >Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="inputPhone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="inputCategory" class="text-white"
+                    >Inquiry Type</label
+                  >
+                  <select
+                    class="form-control"
+                    id="inputCategory"
+                    name="category"
+                  >
+                    <option>General Inquiry</option>
+                    <option>Support</option>
+                    <option>Parking Help</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Information Section -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-4 mb-4">
+            <div class="p-4 border rounded">
+              <i
+                class="bi bi-envelope-fill text-primary mb-3"
+                style="font-size: 2.5rem"
+              ></i>
+              <h4>Email Us</h4>
+              <p>support@eldoretparking.com</p>
+              <p>info@eldoretparking.com</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="p-4 border rounded">
+              <i
+                class="bi bi-telephone-fill text-primary mb-3"
+                style="font-size: 2.5rem"
+              ></i>
+              <h4>Call Us</h4>
+              <p>+254 (0) 718 932 518</p>
+              <p>+254 (0) 795 928 330</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="p-4 border rounded">
+              <i
+                class="bi bi-geo-alt-fill text-primary mb-3"
+                style="font-size: 2.5rem"
+              ></i>
+              <h4>Our Location</h4>
+              <p>Eldoret, Kenya</p>
+              <p>City Center Parking, Rupa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include('_footer.ejs') %>
+
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- nice select -->
+    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+  </body>
+</html>
