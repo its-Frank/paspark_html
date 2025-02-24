@@ -44,7 +44,6 @@
       </div>
       <%- include('_header.ejs') %>
     </div>
-
     <main class="container py-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
@@ -56,11 +55,13 @@
               <div class="mb-4">
                 <div class="row mb-2">
                   <div class="col-6">Location:</div>
-                  <div class="col-6 fw-bold"><%=spaceInfo.location_name %></div>
+                  <div class="col-6 fw-bold">
+                    <%= spaceInfo.location_name %>
+                  </div>
                 </div>
                 <div class="row mb-2">
                   <div class="col-6">Space Name:</div>
-                  <div class="col-6 fw-bold"><%=spaceInfo.space_label %></div>
+                  <div class="col-6 fw-bold"><%= spaceInfo.space_label %></div>
                 </div>
                 <div class="row mb-2">
                   <div class="col-6">Space Category:</div>
@@ -73,14 +74,12 @@
                   </div>
                 </div>
               </div>
-
               <form action="/bookspace" method="post">
                 <input
                   type="hidden"
                   name="spaceId"
-                  value="<%=locals.spaceId%>"
+                  value="<%= locals.spaceId %>"
                 />
-
                 <div class="mb-3">
                   <label for="payment" class="form-label"
                     >Select Payment Method</label
@@ -91,7 +90,6 @@
                     <option value="cash">Cash</option>
                   </select>
                 </div>
-
                 <div class="mb-3">
                   <label for="time" class="form-label"
                     >How Long Are You Parking</label
@@ -99,16 +97,14 @@
                   <select name="time" id="time" class="form-select">
                     <option value="1">1 Hour</option>
                     <option value="2">2 Hours</option>
-                    <option value="3">3 hours</option>
-                    <option value="4">4 hours or more</option>
+                    <option value="3">3 Hours</option>
+                    <option value="4">4 Hours or More</option>
                   </select>
                 </div>
-
                 <div class="alert alert-info" role="alert">
                   Amount Expected to Pay: KSH.
                   <span id="total" class="fw-bold"></span>
                 </div>
-
                 <div class="d-grid">
                   <button type="submit" class="btn btn-primary">
                     Complete Booking
@@ -120,25 +116,39 @@
         </div>
       </div>
     </main>
-
     <script>
-      const rateEl = document.getElementById("rate");
-      const timeSelectEl = document.getElementById("time");
-      const totalAmountEl = document.getElementById("total");
-
-      function updateTotal() {
-        totalAmountEl.textContent = timeSelectEl.value * rateEl.textContent;
-      }
-
-      // Initial total calculation
-      updateTotal();
-
-      // Update total on time selection change
-      timeSelectEl.addEventListener("change", updateTotal);
+      // Ensure the script runs after the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get DOM elements
+        const rateEl = document.getElementById("rate");
+        const timeSelectEl = document.getElementById("time");
+        const totalAmountEl = document.getElementById("total");
+        // Check if elements exist
+        if (!rateEl || !timeSelectEl || !totalAmountEl) {
+          console.error("One or more required DOM elements are missing.");
+          return;
+        }
+        // Function to calculate and update the total amount
+        function updateTotal() {
+          const rate = parseFloat(rateEl.textContent);
+          const hours = parseFloat(timeSelectEl.value);
+          // Validate inputs
+          if (isNaN(rate) || isNaN(hours)) {
+            console.error("Invalid rate or hours value:", rate, hours);
+            totalAmountEl.textContent = "Error";
+            return;
+          }
+          // Calculate and display the total
+          const total = rate * hours;
+          totalAmountEl.textContent = total.toFixed(2);
+        }
+        // Initial total calculation
+        updateTotal();
+        // Update total on time selection change
+        timeSelectEl.addEventListener("change", updateTotal);
+      });
     </script>
-
     <%- include('_footer.ejs') %>
-
     <!-- jQery -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <!-- popper js -->

@@ -59,6 +59,18 @@ app.get("/about", (req, res) => {
 app.get("/pricing", (req, res) => {
   res.render("pricing");
 });
+//basic
+app.get("/basic", (req, res) => {
+  res.render("basic");
+});
+//standard
+app.get("/standard", (req, res) => {
+  res.render("standard");
+});
+//premium
+app.get("/premium", (req, res) => {
+  res.render("premium");
+});
 //why
 app.get("/why", (req, res) => {
   res.render("why");
@@ -195,10 +207,7 @@ app.get("/booknow", (req, res) => {
 });
 //profile
 app.get("/profile", (req, res) => {
-  // all bookings -- active booking, and history
-  // active booking -- current bill , checkout link(make space available, thank you message.(reciept))
   const selectBookings = `SELECT * FROM bookings WHERE user = '${req.session.user.email}'`;
-
   conn.query(selectBookings, (selectErr, bookings) => {
     if (selectErr) {
       console.log(selectErr);
